@@ -14,6 +14,7 @@ const highestTemp = document.getElementById("highest");
 const lowestTemp = document.getElementById("lowest");
 const hourlyText = document.getElementById("hourly-text");
 const hourlyPredictions = document.getElementById("hourly-predictions");
+const dailyDiv = document.getElementById("daily");
 
 async function renderCity(id, city) {
   loadingText.innerText = `Loading weather data for ${city}...`;
@@ -32,6 +33,7 @@ async function renderCity(id, city) {
       cityData.forecast.forecastday[0].day.mintemp_c
     )}°`;
     renderHourly(cityData);
+    renderDaily(cityData);
   } catch (e) {
     console.log(e);
   }
@@ -69,7 +71,9 @@ function renderHourly(cityData) {
     );
     hourlyIcon.classList.add("hourly__icon");
 
-    hourlyTemp.innerText = `${cityData.forecast.forecastday[currentDay].hour[initHourNumber].temp_c}°`;
+    hourlyTemp.innerText = `${Math.floor(
+      cityData.forecast.forecastday[currentDay].hour[initHourNumber].temp_c
+    )}°`;
     hourlyTemp.classList.add("hourly__temp");
 
     hourlyPrediction.appendChild(hourlyTime);
@@ -86,17 +90,46 @@ function renderHourly(cityData) {
   }
 }
 
-async function renderDaily(id) {
-  const cityData = await getCityData(id);
+function renderDaily(cityData) {
   const date = new Date();
-  const dayIndex = date.getDay();
+  let dayIndex = date.getDay();
   const daysArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const currentDay = daysArr[dayIndex];
+  const days = dailyDiv.querySelectorAll("div");
+
+  let counter = 0;
+  days.forEach((node) => {
+    const dayElements = node.querySelectorAll("p");
+    const dayIcon = node.querySelector("img");
+    console.log(dayElements[0]);
+    if (counter === 0) {
+      dayElements[0].innerText = "Today";
+    } else {
+      if (dayIndex > 6) {
+        dayIndex = 0;
+      }
+      const dayToRender = daysArr[dayIndex];
+      dayElements[0].innerText = dayToRender;
+    }
+    dayIcon.setAttribute(
+      "src",
+      cityData.forecast.forecastday[counter].day.condition.icon
+    );
+    dayElements[1].innerText = `H:${Math.floor(
+      cityData.forecast.forecastday[counter].day.maxtemp_c
+    )}°`;
+    dayElements[2].innerText = `H:${Math.floor(
+      cityData.forecast.forecastday[counter].day.mintemp_c
+    )}°`;
+    dayElements[3].innerText = `Wind: ${cityData.forecast.forecastday[counter].day.maxwind_kph} km/h`;
+
+    dayIndex++;
+    counter++;
+  });
 }
 
 if (window.location.pathname === "/city.html") {
   document.addEventListener("DOMContentLoaded", () =>
-    renderCity(581346, "Gera")
+    renderCity(633815, "Zwickau")
   );
 }
 

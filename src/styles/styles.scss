@@ -87,7 +87,7 @@ hr {
 }
 
 .app {
-  min-height: 140vh;
+  max-height: 140vh;
   background: linear-gradient(rgb(51, 50, 53), rgb(78, 80, 54));
   padding: 1rem;
   width: 100%;
@@ -95,6 +95,7 @@ hr {
   flex-direction: column;
   gap: 1.5rem;
   overflow: scroll;
+  scrollbar-width: none;
   @media (min-width: 700px) {
     width: 430px;
   }
@@ -140,7 +141,6 @@ hr {
 }
 
 .hourly {
-  min-height: 30vh;
   background-color: $city-card-opacity;
   border-radius: $border-radius;
   padding: $city-card-padding;
@@ -168,5 +168,33 @@ hr {
 
   &__icon {
     height: 60px;
+  }
+}
+
+.daily {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: $city-card-padding;
+  background-color: $city-card-opacity;
+  border-radius: $border-radius;
+  box-shadow: $cards-shadow;
+
+  &__text {
+    font-size: $normal-font-size;
+  }
+
+  &__day {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__name {
+    width: 3rem;
+  }
+
+  &__icon {
+    height: 40px;
   }
 }
