@@ -1,3 +1,4 @@
+import { getConditionImagePath } from "./conditions";
 import { getCityData, showCities } from "./fetch-logic";
 
 const main = document.getElementById("main");
@@ -38,9 +39,15 @@ async function renderCity(id, city) {
     lowestTemp.innerText = `L:${Math.floor(
       cityData.forecast.forecastday[0].day.mintemp_c
     )}°`;
+    const weatherCode = cityData.current.condition.code;
+    const isnight = cityData.current.is_day === 1 ? false : true;
     renderHourly(cityData);
     renderDaily(cityData);
     renderExtras(cityData);
+    console.log(getConditionImagePath(weatherCode, isnight));
+    app.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(
+      ${getConditionImagePath(weatherCode, isnight)}
+    ) center no-repeat`;
   } catch (e) {
     console.log(e);
   }

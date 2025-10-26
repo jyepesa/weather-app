@@ -87,8 +87,8 @@ hr {
 }
 
 .app {
+  background-size: cover !important;
   max-height: 140vh;
-  background: linear-gradient(rgb(51, 50, 53), rgb(78, 80, 54));
   padding: 1rem;
   width: 100%;
   display: flex;
@@ -117,6 +117,7 @@ hr {
   border-radius: $border-radius;
   padding: $city-card-padding;
   box-shadow: $cards-shadow;
+  backdrop-filter: blur(25px);
 }
 
 .city {
