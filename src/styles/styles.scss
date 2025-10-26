@@ -67,7 +67,74 @@ hr {
   }
 }
 
+.city-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.city-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &--delete {
+    height: 2rem;
+    color: red;
+    filter: drop-shadow($text-shadow);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2.5rem;
+    border-radius: $border-radius;
+    padding: $city-card-padding;
+    box-shadow: $cards-shadow;
+    font-size: $normal-font-size;
+    text-shadow: $text-shadow;
+    background-size: cover !important;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__lower {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__names {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__city {
+    font-size: $important-font-size;
+    font-weight: 100;
+  }
+
+  &__temperature {
+    font-size: 2.5rem;
+  }
+
+  &__extremes {
+    display: flex;
+    gap: 0.6rem;
+  }
+}
 //city styling
+
 .loading-screen {
   height: 100vh;
   background: linear-gradient(rgb(51, 50, 53), rgb(78, 80, 54));

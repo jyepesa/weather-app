@@ -1,11 +1,11 @@
 import { getConditionImagePath } from "./conditions";
 import { getCityData, showCities } from "./fetch-logic";
+import { renderCards } from "./main-rendering";
 
-const main = document.getElementById("main");
+const cityCards = document.getElementById("city-cards");
 const app = document.getElementById("app");
 const loadingScreen = document.getElementById("loading-screen");
 const loadingText = document.getElementById("loading-text");
-const testLink = document.getElementById("test-link");
 const backBtn = document.getElementById("back");
 const favoriteBtn = document.getElementById("favorite");
 const cityName = document.getElementById("city-name");
@@ -44,7 +44,6 @@ async function renderCity(id, city) {
     renderHourly(cityData);
     renderDaily(cityData);
     renderExtras(cityData);
-    console.log(getConditionImagePath(weatherCode, isnight));
     app.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(
       ${getConditionImagePath(weatherCode, isnight)}
     ) center no-repeat`;
@@ -149,12 +148,12 @@ function renderExtras(cityData) {
   uvIndex.innerText = cityData.current.uv;
 }
 
-if (window.location.pathname === "/city.html") {
-  document.addEventListener("DOMContentLoaded", () =>
-    renderCity(633815, "Zwickau")
-  );
-}
+localStorage.setItem("idsToRender", JSON.stringify([104766, 581346, 2878223]));
 
-testLink?.addEventListener("click", () => {
-  window.location.href = "../city.html";
-});
+if (window.location.pathname === "/city.html") {
+  const city = localStorage.getItem("cityName");
+  const id = localStorage.getItem("idToRender");
+  renderCity(id, city);
+} else {
+  renderCards([104766, 581346, 2878223], cityCards);
+}

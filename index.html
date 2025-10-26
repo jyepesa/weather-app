@@ -9,7 +9,16 @@
     <title>Weather App</title>
   </head>
   <body>
-    <div class="main" id="main">
+    <div class="loading-screen" id="loading-screen">
+      <p class="loading-screen__text" id="loading-text"></p>
+      <div class="lds-ring" id="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="main hidden" id="main">
       <div class="main__nav-bar">
         <h1 class="main__title">Weather App</h1>
         <p class="main__edit">Edit</p>
@@ -20,10 +29,7 @@
         type="text"
         placeholder="Enter city name"
       />
-      <p id="test-link">show city</p>
-      <div class="city-cards">
-        <!--program city card class-->
-      </div>
+      <div class="city-cards" id="city-cards"></div>
     </div>
   </body>
 </html>
