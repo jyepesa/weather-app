@@ -15,6 +15,12 @@ const lowestTemp = document.getElementById("lowest");
 const hourlyText = document.getElementById("hourly-text");
 const hourlyPredictions = document.getElementById("hourly-predictions");
 const dailyDiv = document.getElementById("daily");
+const humidity = document.getElementById("humidity");
+const feltTemp = document.getElementById("felt");
+const sunriseHour = document.getElementById("sunrise");
+const sunsetHour = document.getElementById("sunset");
+const rainfall = document.getElementById("rainfall");
+const uvIndex = document.getElementById("uv-index");
 
 async function renderCity(id, city) {
   loadingText.innerText = `Loading weather data for ${city}...`;
@@ -34,6 +40,7 @@ async function renderCity(id, city) {
     )}°`;
     renderHourly(cityData);
     renderDaily(cityData);
+    renderExtras(cityData);
   } catch (e) {
     console.log(e);
   }
@@ -100,7 +107,6 @@ function renderDaily(cityData) {
   days.forEach((node) => {
     const dayElements = node.querySelectorAll("p");
     const dayIcon = node.querySelector("img");
-    console.log(dayElements[0]);
     if (counter === 0) {
       dayElements[0].innerText = "Today";
     } else {
@@ -125,6 +131,15 @@ function renderDaily(cityData) {
     dayIndex++;
     counter++;
   });
+}
+
+function renderExtras(cityData) {
+  humidity.innerText = cityData.current.humidity + "%";
+  feltTemp.innerText = cityData.current.feelslike_c + "°";
+  sunriseHour.innerText = cityData.forecast.forecastday[0].astro.sunrise;
+  sunsetHour.innerText = cityData.forecast.forecastday[0].astro.sunset;
+  rainfall.innerText = cityData.current.precip_mm + "mm";
+  uvIndex.innerText = cityData.current.uv;
 }
 
 if (window.location.pathname === "/city.html") {

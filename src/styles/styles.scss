@@ -112,6 +112,12 @@ hr {
     }
   }
 }
+.card {
+  background-color: $city-card-opacity;
+  border-radius: $border-radius;
+  padding: $city-card-padding;
+  box-shadow: $cards-shadow;
+}
 
 .city {
   display: flex;
@@ -141,11 +147,6 @@ hr {
 }
 
 .hourly {
-  background-color: $city-card-opacity;
-  border-radius: $border-radius;
-  padding: $city-card-padding;
-  box-shadow: $cards-shadow;
-
   &__text {
     font-size: $normal-font-size;
     margin-bottom: 0.5rem;
@@ -175,10 +176,6 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  padding: $city-card-padding;
-  background-color: $city-card-opacity;
-  border-radius: $border-radius;
-  box-shadow: $cards-shadow;
 
   &__text {
     font-size: $normal-font-size;
@@ -196,5 +193,22 @@ hr {
 
   &__icon {
     height: 40px;
+  }
+}
+
+.extras {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.7rem;
+}
+
+.extra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__value {
+    font-size: 1.8rem;
+    font-weight: 100;
+    margin: 1rem auto;
   }
 }
