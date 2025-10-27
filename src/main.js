@@ -1,5 +1,5 @@
 import { getConditionImagePath } from "./conditions";
-import { getCityData, showCities } from "./fetch-logic";
+import { getCityData } from "./fetch-logic";
 import { renderCards } from "./main-menu-rendering";
 
 const main = document.getElementById("main");
@@ -166,7 +166,7 @@ function setFavorite() {
   favoriteBtn.classList.add("hidden");
 }
 
-if (window.location.pathname === "/city.html") {
+if (window.location.pathname === "/weather-app/city.html") {
   const city = localStorage.getItem("cityName");
   const id = localStorage.getItem("idToRender");
   renderCity(id, city);
@@ -185,7 +185,5 @@ if (window.location.pathname === "/city.html") {
 backBtn?.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
-
-//localStorage.setItem("favorites", JSON.stringify(["104766", "581346", "2878223"]));
 
 favoriteBtn?.addEventListener("click", setFavorite);

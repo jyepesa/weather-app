@@ -1,10 +1,13 @@
-import { getCityData } from "./fetch-logic";
+import { getCityData, showCities } from "./fetch-logic";
 import { getConditionImagePath } from "./conditions";
 
 const loadingScreen = document.getElementById("loading-screen");
 const loadingText = document.getElementById("loading-text");
 const main = document.getElementById("main");
 const editBtn = document.getElementById("edit-button");
+const searchBar = document.getElementById("city-search");
+const message = document.getElementById("search-message");
+const searchResults = document.getElementById("search-results");
 const cityCards = document.getElementById("city-cards");
 
 export async function renderCards(idArray, parentNode) {
@@ -121,4 +124,62 @@ function removeCard(id) {
   });
 }
 
+async function renderSearchResults(query) {
+  searchResults.innerHTML = "";
+  if (query.length < 2) {
+    return;
+  }
+  message.classList.remove("hidden");
+  const citiesArr = await showCities(query);
+  if (typeof citiesArr !== "object") {
+    message.innerText = citiesArr;
+    return;
+  }
+  message.classList.add("hidden");
+  for (let city of citiesArr) {
+    const result = document.createElement("li");
+    const cityName = document.createElement("p");
+    const country = document.createElement("p");
+
+    result.classList.add("main__search-element");
+    result.addEventListener("click", () => {
+      localStorage.setItem("idToRender", city.id);
+      localStorage.setItem("cityName", city.name);
+      window.location.href = "./city.html";
+    });
+
+    cityName.classList.add("main__search-city");
+    cityName.innerText = city.name;
+
+    country.innerText = city.country;
+
+    result.append(cityName, country);
+    searchResults.appendChild(result);
+  }
+}
+
 editBtn?.addEventListener("click", showDeleteBtn);
+
+document.addEventListener("click", () => {
+  if (!message?.classList.contains("hidden")) {
+    message?.classList.add("hidden");
+  }
+  searchResults.innerHTML = "";
+});
+
+let timeoutId;
+searchBar?.addEventListener("input", () => {
+  message.innerText = "Loading results...";
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    renderSearchResults(searchBar.value);
+  }, 800);
+});
+
+searchBar?.addEventListener("click", () => {
+  if (searchBar.value.length > 1) {
+    renderSearchResults(searchBar.value);
+  } else {
+    return;
+  }
+});

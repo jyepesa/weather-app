@@ -56,12 +56,60 @@ hr {
     }
   }
 
+  &__search-div {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__search-bar {
     padding: 0.5rem;
     width: 100%;
     font-size: 1rem;
-    margin-bottom: 1.5rem;
+    border: none;
+    border-radius: 5px;
   }
+
+  &__list-container {
+    position: relative;
+  }
+
+  &__search-results {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__search-element {
+    list-style-type: none;
+    background-color: rgb(23, 22, 22);
+    width: 100%;
+    padding: 0.7rem;
+    border-bottom: 1px solid rgb(100, 100, 100);
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(100, 100, 100);
+      border-bottom: 1px solid rgb(122, 122, 122);
+    }
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  &__search-message {
+    position: absolute;
+    z-index: 2;
+    background-color: rgb(23, 22, 22);
+    width: 100%;
+    padding: 0.7rem;
+  }
+
+  &__search-city {
+    font-size: 1.4rem;
+  }
+
   @media (min-width: 700px) {
     width: 430px;
   }
@@ -71,6 +119,7 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .city-card {
@@ -150,6 +199,7 @@ hr {
   gap: 1rem;
   &__text {
     font-size: 1.5rem;
+    text-align: center;
   }
 
   @media (min-width: 700px) {

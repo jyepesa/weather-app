@@ -23,12 +23,20 @@
         <h1 class="main__title">Weather App</h1>
         <p class="main__edit" id="edit-button">Edit</p>
       </div>
-      <input
-        id="city-search"
-        class="main__search-bar"
-        type="text"
-        placeholder="Enter city name"
-      />
+      <div class="main__search-div">
+        <input
+          id="city-search"
+          class="main__search-bar"
+          type="text"
+          placeholder="Enter city name"
+        />
+        <div class="main__list-container">
+          <p class="main__search-message hidden" id="search-message">
+            Loading results...
+          </p>
+          <ul class="main__search-results" id="search-results"></ul>
+        </div>
+      </div>
       <div class="city-cards" id="city-cards"></div>
     </div>
   </body>
