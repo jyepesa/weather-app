@@ -20,7 +20,7 @@ export async function showCities(query) {
 }
 
 export async function getCityData(id) {
-  const url = "http://api.weatherapi.com/v1/forecast.json";
+  const url = "https://api.weatherapi.com/v1/forecast.json";
   try {
     const response = await fetch(`${url}?key=${apiKey}&days=3&q=id:${id}`);
     if (!response.ok) {
