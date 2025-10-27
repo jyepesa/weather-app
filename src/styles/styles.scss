@@ -14,9 +14,6 @@ body {
   display: flex;
   justify-content: center;
   background-color: rgb(76, 90, 92);
-  & > * {
-    border-radius: $border-radius;
-  }
 }
 
 hr {
@@ -112,6 +109,7 @@ hr {
 
   @media (min-width: 700px) {
     width: 430px;
+    border-radius: $border-radius;
   }
 }
 
@@ -204,6 +202,7 @@ hr {
 
   @media (min-width: 700px) {
     width: 430px;
+    border-radius: $border-radius;
   }
 }
 
@@ -219,6 +218,7 @@ hr {
   scrollbar-width: none;
   @media (min-width: 700px) {
     width: 430px;
+    border-radius: $border-radius;
   }
 }
 
