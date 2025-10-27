@@ -1,7 +1,8 @@
 import { getConditionImagePath } from "./conditions";
 import { getCityData, showCities } from "./fetch-logic";
-import { renderCards } from "./main-rendering";
+import { renderCards } from "./main-menu-rendering";
 
+const main = document.getElementById("main");
 const cityCards = document.getElementById("city-cards");
 const app = document.getElementById("app");
 const loadingScreen = document.getElementById("loading-screen");
@@ -22,6 +23,8 @@ const sunriseHour = document.getElementById("sunrise");
 const sunsetHour = document.getElementById("sunset");
 const rainfall = document.getElementById("rainfall");
 const uvIndex = document.getElementById("uv-index");
+
+const favorites = JSON.parse(localStorage.getItem("favorites"));
 
 async function renderCity(id, city) {
   loadingText.innerText = `Loading weather data for ${city}...`;
@@ -148,12 +151,41 @@ function renderExtras(cityData) {
   uvIndex.innerText = cityData.current.uv;
 }
 
-localStorage.setItem("idsToRender", JSON.stringify([104766, 581346, 2878223]));
+function setFavorite() {
+  const newFavoriteId = localStorage.getItem("idToRender");
+  if (favorites === null || favorites.length < 1) {
+    const favoritesUpdated = [newFavoriteId];
+    localStorage.setItem("favorites", JSON.stringify(favoritesUpdated));
+  } else {
+    if (favorites.some((id) => id === newFavoriteId)) {
+      return;
+    }
+    favorites.push(newFavoriteId);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+  favoriteBtn.classList.add("hidden");
+}
 
 if (window.location.pathname === "/city.html") {
   const city = localStorage.getItem("cityName");
   const id = localStorage.getItem("idToRender");
   renderCity(id, city);
+  if (favorites !== null && favorites.some((element) => element === id)) {
+    favoriteBtn.classList.add("hidden");
+  }
 } else {
-  renderCards([104766, 581346, 2878223], cityCards);
+  if (favorites !== null && favorites.length > 0) {
+    renderCards(favorites, cityCards);
+  } else {
+    loadingScreen.classList.add("hidden");
+    main.classList.remove("hidden");
+  }
 }
+
+backBtn?.addEventListener("click", () => {
+  window.location.href = "./index.html";
+});
+
+//localStorage.setItem("favorites", JSON.stringify(["104766", "581346", "2878223"]));
+
+favoriteBtn?.addEventListener("click", setFavorite);

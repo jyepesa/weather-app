@@ -79,9 +79,13 @@ hr {
   align-items: center;
 
   &--delete {
+    margin-right: 1rem;
     height: 2rem;
     color: red;
     filter: drop-shadow($text-shadow);
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__card {

@@ -4,11 +4,14 @@ import { getConditionImagePath } from "./conditions";
 const loadingScreen = document.getElementById("loading-screen");
 const loadingText = document.getElementById("loading-text");
 const main = document.getElementById("main");
+const editBtn = document.getElementById("edit-button");
+const cityCards = document.getElementById("city-cards");
 
 export async function renderCards(idArray, parentNode) {
   loadingText.innerText = "Loading main menu...";
+  let counter = 0;
   try {
-    idArray.forEach(async (id, index) => {
+    for (let id of idArray) {
       const cityData = await getCityData(id);
       loadingScreen.classList.add("hidden");
       main.classList.remove("hidden");
@@ -28,17 +31,19 @@ export async function renderCards(idArray, parentNode) {
       const lowest = document.createElement("span");
 
       cityDiv.classList.add("city-card");
-      cityDiv.setAttribute("data-id", idArray[index]);
+      cityDiv.setAttribute("data-id", id);
 
-      deleteCity.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+      deleteCity.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 city-card--delete hidden">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
 </svg>
 `;
+      deleteCity.addEventListener("click", () => removeCard(id));
+
       cityCard.classList.add("city-card__card");
       cityCard.addEventListener("click", () => {
-        localStorage.setItem("idToRender", idArray[index]);
+        localStorage.setItem("idToRender", id);
         localStorage.setItem("cityName", cityData.location.name);
-        window.location.href = "../city.html";
+        window.location.href = "./city.html";
       });
 
       upperDiv.classList.add("city-card__upper");
@@ -72,9 +77,48 @@ export async function renderCards(idArray, parentNode) {
       cityCard.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(
       ${getConditionImagePath(weatherCode, isnight)}
     ) center no-repeat`;
-    });
+
+      counter++;
+    }
   } catch (e) {
     console.log(e);
     alert(e);
   }
 }
+
+function showDeleteBtn() {
+  const delBtns = cityCards.querySelectorAll(".city-card--delete");
+  delBtns.forEach((button) => {
+    button.classList.toggle("hidden");
+  });
+  if (editBtn.innerText === "Edit") {
+    editBtn.innerText = "Done";
+  } else {
+    editBtn.innerText = "Edit";
+  }
+}
+
+function removeCard(id) {
+  const favorites = JSON.parse(localStorage.getItem("favorites"));
+  if (favorites === null || favorites.length < 1) {
+    return;
+  } else {
+    const index = favorites.findIndex((element) => element === id);
+    if (index === -1) {
+      return;
+    } else {
+      favorites.splice(index, 1);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+  }
+  const cards = cityCards.querySelectorAll(".city-card");
+  cards.forEach((card) => {
+    const dataId = card.getAttribute("data-id");
+    console.log(dataId, id);
+    if (dataId === id) {
+      cityCards.removeChild(card);
+    }
+  });
+}
+
+editBtn?.addEventListener("click", showDeleteBtn);
