@@ -1,7 +1,7 @@
 const apiKey = "3ebd67a1b9214788ade121844252310";
 
 export async function showCities(query) {
-  const url = "http://api.weatherapi.com/v1/search.json";
+  const url = "https://api.weatherapi.com/v1/search.json";
   try {
     const response = await fetch(`${url}?key=${apiKey}&q=${query}`);
     if (!response.ok) {
