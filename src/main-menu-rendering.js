@@ -158,28 +158,30 @@ async function renderSearchResults(query) {
   }
 }
 
-editBtn?.addEventListener("click", showDeleteBtn);
+if (window.location.pathname !== "/weather-app/city.html") {
+  editBtn.addEventListener("click", showDeleteBtn);
 
-document.addEventListener("click", () => {
-  if (!message?.classList.contains("hidden")) {
-    message?.classList.add("hidden");
-  }
-  searchResults.innerHTML = "";
-});
+  document.addEventListener("click", () => {
+    if (!message.classList.contains("hidden")) {
+      message.classList.add("hidden");
+    }
+    searchResults.innerHTML = "";
+  });
 
-let timeoutId;
-searchBar?.addEventListener("input", () => {
-  message.innerText = "Loading results...";
-  clearTimeout(timeoutId);
-  timeoutId = setTimeout(() => {
-    renderSearchResults(searchBar.value);
-  }, 800);
-});
+  let timeoutId;
+  searchBar.addEventListener("input", () => {
+    message.innerText = "Loading results...";
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      renderSearchResults(searchBar.value);
+    }, 800);
+  });
 
-searchBar?.addEventListener("click", () => {
-  if (searchBar.value.length > 1) {
-    renderSearchResults(searchBar.value);
-  } else {
-    return;
-  }
-});
+  searchBar.addEventListener("click", () => {
+    if (searchBar.value.length > 1) {
+      renderSearchResults(searchBar.value);
+    } else {
+      return;
+    }
+  });
+}

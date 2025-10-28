@@ -167,6 +167,12 @@ function setFavorite() {
 }
 
 if (window.location.pathname === "/weather-app/city.html") {
+  backBtn.addEventListener("click", () => {
+    window.location.href = "./index.html";
+  });
+
+  favoriteBtn.addEventListener("click", setFavorite);
+
   const city = localStorage.getItem("cityName");
   const id = localStorage.getItem("idToRender");
   renderCity(id, city);
@@ -181,9 +187,3 @@ if (window.location.pathname === "/weather-app/city.html") {
     main.classList.remove("hidden");
   }
 }
-
-backBtn?.addEventListener("click", () => {
-  window.location.href = "./index.html";
-});
-
-favoriteBtn?.addEventListener("click", setFavorite);

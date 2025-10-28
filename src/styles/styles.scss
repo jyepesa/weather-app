@@ -25,7 +25,7 @@ hr {
 }
 //index styling
 .main {
-  min-height: 140vh;
+  min-height: 100vh;
   background: linear-gradient(rgb(51, 50, 53), rgb(78, 80, 54));
   padding: 1rem;
   width: 100%;
@@ -208,7 +208,7 @@ hr {
 
 .app {
   background-size: cover !important;
-  max-height: 140vh;
+  height: 100vh;
   padding: 1rem;
   width: 100%;
   display: flex;
