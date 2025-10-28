@@ -75,8 +75,12 @@ function renderHourly(cityData) {
 
     if (i === 1) {
       hourlyTime.innerText = "Now";
+    } else if (initHourNumber > 12) {
+      hourlyTime.innerText = `${initHourNumber - 12} PM`;
+    } else if (initHourNumber === 0) {
+      hourlyTime.innerText = "Midnight";
     } else {
-      hourlyTime.innerText = initHourNumber;
+      hourlyTime.innerText = `${initHourNumber} AM`;
     }
     hourlyTime.classList.add("hourly__time");
 

@@ -12,7 +12,6 @@ const cityCards = document.getElementById("city-cards");
 
 export async function renderCards(idArray, parentNode) {
   loadingText.innerText = "Loading main menu...";
-  let counter = 0;
   try {
     for (let id of idArray) {
       const cityData = await getCityData(id);
@@ -80,8 +79,6 @@ export async function renderCards(idArray, parentNode) {
       cityCard.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(
       ${getConditionImagePath(weatherCode, isnight)}
     ) center no-repeat`;
-
-      counter++;
     }
   } catch (e) {
     console.log(e);
